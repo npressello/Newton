@@ -44,47 +44,43 @@ public class UniverseController implements InputProcessor{
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_4) {
-			lastKey = 4;
+			lastKey = 5;
 			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[5].getPosition().x;
 			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[5].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_5) {
-			lastKey = 5;
+			lastKey = 6;
 			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[6].getPosition().x;
 			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[6].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_6) {
-			lastKey = 6;
+			lastKey = 7;
 			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[7].getPosition().x;
 			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[7].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_7) {
-			lastKey = 7;
+			lastKey = 8;
 			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[8].getPosition().x;
 			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[8].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_8) {
-			lastKey = 8;
+			lastKey = 9;
 			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[9].getPosition().x;
 			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[9].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_9) {
-			lastKey = 9;
+			lastKey = 10;
 			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[10].getPosition().x;
 			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[10].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.L) {
-			if (lastKey > 3) lastKey++;
-			//xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[lastKey].getPosition().x;
-			//yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[lastKey].getPosition().y;
 			String name = universe.getGalaxy().getSystems()[0].getPlanets()[lastKey].getName();
-			//screen.setCamera(xPos, yPos, 0, 0);
 			screen.lockCam(name);
 		}
 		if (keycode == Input.Keys.PLUS) {

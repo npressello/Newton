@@ -13,7 +13,10 @@ public class Physics {
 				double xDiff = p.getPosition().x - x;
 				double yDiff = p.getPosition().y - y;
 				double r = planet.getPosition().dst(p.getPosition());
-				double F = calcForce(planet, p, r*(3*r/4));
+				if (p.getName().equals("Earth") && planet.getName().equals("Moon")) {
+					System.out.println(r);
+				}
+				double F = calcForce(planet, p, r*r);
 				double Fx = calcFcoord(F, xDiff, r);
 				double Fy = calcFcoord(F, yDiff, r);
 				netForce = netForce.add(Fx, Fy);
