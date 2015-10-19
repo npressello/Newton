@@ -80,6 +80,7 @@ public class GameScreen implements Screen{
 			game.getFont().draw(game.getSpriteBatch(), "yPos: "+yPos, 10, 560);
 			game.getFont().draw(game.getSpriteBatch(), "xSpeed: "+xSpeed, 10, 545);
 			game.getFont().draw(game.getSpriteBatch(), "ySpeed: "+ySpeed, 10, 530);
+			game.getFont().draw(game.getSpriteBatch(), "FPS: "+Gdx.graphics.getFramesPerSecond(), 740, 590);
 			game.getSpriteBatch().end();
 		}		
 	}
@@ -117,14 +118,16 @@ public class GameScreen implements Screen{
 		return pause;
 	}
 	
+	public void setPause(boolean pause) {
+		this.pause = pause;
+	}
+	
 	@Override
 	public void pause() {
-		pause = true;
 	}
 
 	@Override
 	public void resume() {
-		pause = false;
 	}
 
 	@Override

@@ -95,9 +95,9 @@ public class UniverseController implements InputProcessor{
 		}
 		if (keycode == Input.Keys.SPACE) {
 			if (screen.getPause()) {
-				screen.resume();
+				screen.setPause(false);;
 			} else {
-				screen.pause();
+				screen.setPause(true);
 			}
 		}
 		return false;
