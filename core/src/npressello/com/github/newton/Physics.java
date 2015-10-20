@@ -2,7 +2,7 @@ package npressello.com.github.newton;
 
 public class Physics {
 	
-	private static final double G = 6.67e-11;
+	private static final double G = 3.67e-1;
 	
 	public static Vector2d calcNetForce(Planet planet, Planet[] others) {
 		Vector2d netForce = new Vector2d(0,0);

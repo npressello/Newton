@@ -15,8 +15,8 @@ public class GameScreen implements Screen{
 	private ShapeRenderer shapeRenderer;
 	private Universe universe;
 	private UniverseController controller;
-	private static float CAMERA_WIDTH = 1600000;
-	private static float CAMERA_HEIGHT = 1200000;
+	private static float CAMERA_WIDTH = 8000;
+	private static float CAMERA_HEIGHT = 6000;
 	private float zoom = 1.0f;
 	private boolean pause = false;
 	private boolean lockCam = false;
@@ -26,7 +26,7 @@ public class GameScreen implements Screen{
 		this.game = game;
 		universe = new Universe(this);
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 1600000, 1200000);
+		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
 		camera.update();
 		textCamera = new OrthographicCamera();
 		textCamera.setToOrtho(false, 800, 600);
