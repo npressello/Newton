@@ -1,49 +1,48 @@
 package npressello.com.github.newton;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Physics {
 	
-	private static final double G = 3.67e-1;
+	private static final float G = 0.367f;
 	
-	public static Vector2d calcNetForce(Planet planet, Planet[] others) {
-		Vector2d netForce = new Vector2d(0,0);
-		double x = planet.getPosition().x;
-		double y = planet.getPosition().y;
+	public static Vector2 calcNetForce(Planet planet, Planet[] others) {
+		Vector2 netForce = new Vector2(0,0);
+		float x = planet.getPosition().x;
+		float y = planet.getPosition().y;
 		for (Planet p: others) {
 			if (!planet.getName().equalsIgnoreCase(p.getName())) {
-				double xDiff = p.getPosition().x - x;
-				double yDiff = p.getPosition().y - y;
-				double r = planet.getPosition().dst(p.getPosition());
-				if (p.getName().equals("Earth") && planet.getName().equals("Moon")) {
-					System.out.println(r);
-				}
-				double F = calcForce(planet, p, r*r);
-				double Fx = calcFcoord(F, xDiff, r);
-				double Fy = calcFcoord(F, yDiff, r);
+				float xDiff = p.getPosition().x - x;
+				float yDiff = p.getPosition().y - y;
+				float r = planet.getPosition().dst(p.getPosition());
+				float F = calcForce(planet, p, r*r);
+				float Fx = calcFcoord(F, xDiff, r);
+				float Fy = calcFcoord(F, yDiff, r);
 				netForce = netForce.add(Fx, Fy);
 			}			
 		}
 		return netForce;
 	}
 	
-	public static Vector2d calcAccel(Planet p, Vector2d netForce) {
-		double ax = netForce.x / p.getMass();
-		double ay = netForce.y / p.getMass();
-		Vector2d accel = new Vector2d(ax,ay);
+	public static Vector2 calcAccel(Planet p, Vector2 netForce) {
+		float ax = netForce.x / p.getMass();
+		float ay = netForce.y / p.getMass();
+		Vector2 accel = new Vector2(ax,ay);
 		return accel;
 	}
 	
-	public static Vector2d newVel(float delta, Planet p, Vector2d a) {
-		double vx = p.getVelocity().x + a.x * delta;
-		double vy = p.getVelocity().y + a.y * delta;
-		Vector2d vel = new Vector2d(vx, vy);
+	public static Vector2 newVel(float delta, Planet p, Vector2 a) {
+		float vx = p.getVelocity().x + a.x * delta;
+		float vy = p.getVelocity().y + a.y * delta;
+		Vector2 vel = new Vector2(vx, vy);
 		return vel;
 	}
 	
-	public static double calcForce(Planet planet, Planet p, double squareDist) {
+	public static float calcForce(Planet planet, Planet p, float squareDist) {
 		return (G * planet.getMass() * p.getMass()) / squareDist;
 	}
 	
-	public static double calcFcoord(double F, double xDiff, double dist) {
+	public static float calcFcoord(float F, float xDiff, float dist) {
 		return F * xDiff / dist;
 	}
 

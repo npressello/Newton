@@ -21,12 +21,18 @@ public class GameScreen implements Screen{
 	private boolean pause = false;
 	private boolean lockCam = false;
 	private String planetLocked = "Earth";
+	float xPos;
+	float yPos;
+	float xSpeed;
+	float ySpeed;
 	
 	public GameScreen(final Newton game) {
 		this.game = game;
 		universe = new Universe(this);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
+		camera.position.x = 0;
+		camera.position.y = 0;
 		camera.update();
 		textCamera = new OrthographicCamera();
 		textCamera.setToOrtho(false, 800, 600);
@@ -45,42 +51,46 @@ public class GameScreen implements Screen{
 		if (!pause) {
 			Gdx.gl.glClearColor(0, 0, 0, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			
+			long time = System.nanoTime();
 			universe.update(delta);
-			
+			long timePassed = System.nanoTime() - time;
+			System.out.printf("%f\n", ((double)timePassed/1000000000));
 			shapeRenderer.setProjectionMatrix(camera.combined);		
-			shapeRenderer.begin(ShapeType.Filled);
-			shapeRenderer.setColor(1, 0, 0, 1);
+			shapeRenderer.begin(ShapeType.Filled);			
 			for (Planet planet: universe.getGalaxy().getSystems()[0].getPlanets()) {
-				shapeRenderer.circle((float)planet.getPosition().x, (float)planet.getPosition().y, (float)planet.getRadius());
-				if (planet.getName().equals(planetLocked) && lockCam) {
-					camera.position.x = (float) planet.getPosition().x;
-					camera.position.y = (float) planet.getPosition().y;
-					camera.update();
+				shapeRenderer.setColor(planet.getColor());
+				shapeRenderer.circle(planet.getPosition().x, planet.getPosition().y, planet.getRadius());
+				if (planet.getName().equals(planetLocked)) {
+					xPos = planet.getPosition().x;
+					yPos = planet.getPosition().y;
+					xSpeed = planet.getVelocity().x;
+					ySpeed = planet.getVelocity().y;
+					if (lockCam) {
+						camera.position.x = xPos;
+						camera.position.y = yPos;
+						camera.update();
+					}					
 				}
 			}		
 			shapeRenderer.end();
 			
+			shapeRenderer.begin(ShapeType.Line);
+			for (Planet planet: universe.getGalaxy().getSystems()[0].getPlanets()) {
+				shapeRenderer.setColor(planet.getColor());
+				shapeRenderer.polygon(planet.getOrbitPoints());				
+			}
+			shapeRenderer.end();
+			
 			game.getSpriteBatch().setProjectionMatrix(textCamera.combined);
 			game.getSpriteBatch().begin();
-			float xPos = 0;
-			float yPos = 0;
-			float xSpeed = 0;
-			float ySpeed = 0;
-			for (Planet p : universe.getGalaxy().getSystems()[0].getPlanets()) {
-				if (p.getName().equals(planetLocked)) {
-					xPos = (float) p.getPosition().x;
-					yPos = (float) p.getPosition().y;
-					xSpeed = (float) p.getVelocity().x;
-					ySpeed = (float) p.getVelocity().y;
-				}
-			}
 			game.getFont().draw(game.getSpriteBatch(), "Name: "+planetLocked, 10, 590);
 			game.getFont().draw(game.getSpriteBatch(), "xPos: "+xPos, 10, 575);
 			game.getFont().draw(game.getSpriteBatch(), "yPos: "+yPos, 10, 560);
 			game.getFont().draw(game.getSpriteBatch(), "xSpeed: "+xSpeed, 10, 545);
 			game.getFont().draw(game.getSpriteBatch(), "ySpeed: "+ySpeed, 10, 530);
-			game.getFont().draw(game.getSpriteBatch(), "FPS: "+Gdx.graphics.getFramesPerSecond(), 740, 590);
+			game.getFont().draw(game.getSpriteBatch(), "FPS: "+Gdx.graphics.getFramesPerSecond(), 650, 590);
+			game.getFont().draw(game.getSpriteBatch(), "Java Heap: "+Gdx.app.getJavaHeap() / 1024, 650, 575);
+			game.getFont().draw(game.getSpriteBatch(), "Native Heap: "+Gdx.app.getNativeHeap() / 1024, 650, 560);
 			game.getSpriteBatch().end();
 		}		
 	}

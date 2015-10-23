@@ -1,6 +1,5 @@
 package npressello.com.github.newton;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
@@ -21,62 +20,62 @@ public class UniverseController implements InputProcessor{
 		float yPos = 0;
 		if (keycode == Input.Keys.NUM_0) {
 			lastKey = 0;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[0].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[0].getPosition().y;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[0].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[0].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_1) {
 			lastKey = 1;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[1].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[1].getPosition().y;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[1].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[1].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_2) {
 			lastKey = 2;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[2].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[2].getPosition().y;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[2].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[2].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_3) {
 			lastKey = 3;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[3].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[3].getPosition().y;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[3].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[3].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_4) {
-			lastKey = 5;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[5].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[5].getPosition().y;
+			lastKey = 4;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[4].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[4].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_5) {
-			lastKey = 6;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[6].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[6].getPosition().y;
+			lastKey = 5;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[5].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[5].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_6) {
-			lastKey = 7;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[7].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[7].getPosition().y;
+			lastKey = 6;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[6].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[6].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_7) {
-			lastKey = 8;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[8].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[8].getPosition().y;
+			lastKey = 7;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[7].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[7].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_8) {
-			lastKey = 9;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[9].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[9].getPosition().y;
+			lastKey = 8;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[8].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[8].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.NUM_9) {
-			lastKey = 10;
-			xPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[10].getPosition().x;
-			yPos = (float) universe.getGalaxy().getSystems()[0].getPlanets()[10].getPosition().y;
+			lastKey = 9;
+			xPos = universe.getGalaxy().getSystems()[0].getPlanets()[9].getPosition().x;
+			yPos = universe.getGalaxy().getSystems()[0].getPlanets()[9].getPosition().y;
 			screen.setCamera(xPos, yPos, 0, 0);
 		}
 		if (keycode == Input.Keys.L) {
