@@ -12,20 +12,43 @@ public class Planet {
 	private Vector2 velocity;
 	private Color color;
 	private OrbitBuilder orbit;
+	private Vector2 initialPos;
+	private Vector2 initialVel;
+	private boolean setInitial = false;
+	private boolean fixedPos;
 
-	public Planet(Color color, String name, Vector2 pos, Vector2 vel, float mass, float radius) {
+	public Planet(Color color, String name, Vector2 pos, Vector2 vel, float mass, float radius, boolean fixed) {
 		this.color = color;
 		this.name = name;
 		this.position = pos;
 		this.velocity = vel;
+		initialPos = new Vector2();
+		initialVel = new Vector2();
+		this.initialPos.x = pos.x;
+		this.initialPos.y = pos.y;
+		this.initialVel.x = vel.x;
+		this.initialVel.y = vel.y;
 		this.mass = mass;
 		this.radius = radius;
 		orbit = new OrbitBuilder(this);
+		fixedPos = fixed;
 	}
 
 	public void update(float delta) {
-		position = position.add(velocity.x * delta, velocity.y * delta);
-		orbit.setPoint((int)position.angle());
+		if (!fixedPos) {
+			if (!setInitial)
+				position = position.add(velocity.x * delta, velocity.y * delta);
+			else {
+				setInitial = false;
+				position.x = initialPos.x;
+				position.y = initialPos.y;
+				velocity.x = initialVel.x;
+				velocity.y = initialVel.y;
+			}
+			float angle = position.angle();
+			if (angle > 359) setInitial = true;
+			orbit.setPoint((int)angle);
+		}
 	}
 	
 	public float[] getOrbitPoints() {

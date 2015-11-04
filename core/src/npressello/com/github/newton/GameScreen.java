@@ -31,7 +31,7 @@ public class GameScreen implements Screen{
 		universe = new Universe(this);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
-		camera.position.x = 0;
+		camera.position.x = 1700;
 		camera.position.y = 0;
 		camera.update();
 		textCamera = new OrthographicCamera();
@@ -39,6 +39,7 @@ public class GameScreen implements Screen{
 		textCamera.update();
 		shapeRenderer = new ShapeRenderer();
 		controller = new UniverseController(this, universe);
+		universe.setController(controller);
 		Gdx.input.setInputProcessor(controller);
 	}
 	
@@ -54,7 +55,7 @@ public class GameScreen implements Screen{
 			long time = System.nanoTime();
 			universe.update(delta);
 			long timePassed = System.nanoTime() - time;
-			System.out.printf("%f\n", ((double)timePassed/1000000000));
+			System.out.printf("%f ms\n", ((double)timePassed/1000000));
 			shapeRenderer.setProjectionMatrix(camera.combined);		
 			shapeRenderer.begin(ShapeType.Filled);			
 			for (Planet planet: universe.getGalaxy().getSystems()[0].getPlanets()) {
@@ -64,21 +65,28 @@ public class GameScreen implements Screen{
 					xPos = planet.getPosition().x;
 					yPos = planet.getPosition().y;
 					xSpeed = planet.getVelocity().x;
-					ySpeed = planet.getVelocity().y;
-					if (lockCam) {
-						camera.position.x = xPos;
-						camera.position.y = yPos;
-						camera.update();
-					}					
+					ySpeed = planet.getVelocity().y;										
+				} else {
+					xPos = universe.getPlayer().getPosition().x;
+					yPos = universe.getPlayer().getPosition().y;
+					xSpeed = universe.getPlayer().getVelocity().x;
+					ySpeed = universe.getPlayer().getVelocity().y;
 				}
-			}		
+				if (lockCam) {
+					camera.position.x = xPos;
+					camera.position.y = yPos;
+					camera.update();
+				}
+			}
 			shapeRenderer.end();
 			
 			shapeRenderer.begin(ShapeType.Line);
 			for (Planet planet: universe.getGalaxy().getSystems()[0].getPlanets()) {
 				shapeRenderer.setColor(planet.getColor());
-				shapeRenderer.polygon(planet.getOrbitPoints());				
+				shapeRenderer.polygon(planet.getOrbitPoints());
 			}
+			shapeRenderer.setColor(universe.getPlayer().getColor());
+			shapeRenderer.polygon(universe.getPlayer().getShape().getTransformedVertices());
 			shapeRenderer.end();
 			
 			game.getSpriteBatch().setProjectionMatrix(textCamera.combined);
@@ -88,9 +96,13 @@ public class GameScreen implements Screen{
 			game.getFont().draw(game.getSpriteBatch(), "yPos: "+yPos, 10, 560);
 			game.getFont().draw(game.getSpriteBatch(), "xSpeed: "+xSpeed, 10, 545);
 			game.getFont().draw(game.getSpriteBatch(), "ySpeed: "+ySpeed, 10, 530);
+			game.getFont().draw(game.getSpriteBatch(), "Name: "+universe.getPlayer().getName(), 10, 70);
+			game.getFont().draw(game.getSpriteBatch(), "xPos: "+universe.getPlayer().getPosition().x, 10, 55);
+			game.getFont().draw(game.getSpriteBatch(), "yPos: "+universe.getPlayer().getPosition().y, 10, 40);
+			game.getFont().draw(game.getSpriteBatch(), "Vel: "+universe.getPlayer().getRealVelocity(), 10, 25);
 			game.getFont().draw(game.getSpriteBatch(), "FPS: "+Gdx.graphics.getFramesPerSecond(), 650, 590);
 			game.getFont().draw(game.getSpriteBatch(), "Java Heap: "+Gdx.app.getJavaHeap() / 1024, 650, 575);
-			game.getFont().draw(game.getSpriteBatch(), "Native Heap: "+Gdx.app.getNativeHeap() / 1024, 650, 560);
+			game.getFont().draw(game.getSpriteBatch(), "Native Heap: "+Gdx.app.getNativeHeap() / 1024, 650, 560);			
 			game.getSpriteBatch().end();
 		}		
 	}

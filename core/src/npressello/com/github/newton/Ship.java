@@ -1,6 +1,7 @@
 package npressello.com.github.newton;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ship {
@@ -9,7 +10,9 @@ public class Ship {
 	private Vector2 position;
 	private Vector2 velocity;
 	private float direction;
+	private float vel;
 	private Color color;
+	private Polygon shape;
 	
 	public Ship(Color color, String name, Vector2 position, Vector2 velocity, float mass) {
 		this.color = color;
@@ -17,11 +20,26 @@ public class Ship {
 		this.position = position;
 		this.velocity = velocity;
 		this.mass = mass;
+		float[] vertices = {5, -5, 0, 5, -5, -5};		
+		shape = new Polygon(vertices);	
+		shape.setPosition(position.x, position.y);
+		System.out.println(shape.getRotation());
+		vel = 0.5f;
 	}
 	
-	public void update(float delta, float angle) {
+	public void update(float delta) {
 		position.add(velocity.x * delta, velocity.y * delta);
+		shape.setPosition(position.x, position.y);
+	}
+	
+	public void addDirection(float angle) {
 		direction += angle;
+		direction %= 360;
+		shape.setRotation(direction);
+	}
+	
+	public Polygon getShape() {
+		return shape;
 	}
 
 	public String getName() {
@@ -70,5 +88,14 @@ public class Ship {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public void changeVelocity(int f) {
+		this.velocity.x = this.velocity.x + (float) (f*vel * Math.cos(Math.toRadians((direction+90)%360)));
+		this.velocity.y = this.velocity.y + (float) (f*vel * Math.sin(Math.toRadians((direction+90)%360)));
+	}
+	
+	public float getRealVelocity() {
+		return (float) Math.sqrt(velocity.x*velocity.x + velocity.y*velocity.y);
 	}
 }

@@ -8,10 +8,12 @@ public class UniverseController implements InputProcessor{
 	private GameScreen screen;
 	private Universe universe;
 	private int lastKey = 0;
+	private boolean[] keysPressed;
 	
 	public UniverseController(GameScreen screen, Universe universe) {
 		this.screen = screen;
 		this.universe = universe;
+		keysPressed = new boolean[10];
 	}
 	
 	@Override
@@ -95,12 +97,34 @@ public class UniverseController implements InputProcessor{
 				screen.setPause(true);
 			}
 		}
-		return false;
+		if (keycode == Input.Keys.UP) {
+			keysPressed[0] = true;
+		} else if (keycode == Input.Keys.DOWN) {
+			keysPressed[1] = true;
+		}
+		if (keycode == Input.Keys.LEFT) {
+			keysPressed[2] = true;
+		} else if (keycode == Input.Keys.RIGHT) {
+			keysPressed[3] = true;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		return false;
+		if (keycode == Input.Keys.UP) {
+			keysPressed[0] = false;
+		}
+		if (keycode == Input.Keys.DOWN) {
+			keysPressed[1] = false;
+		}
+		if (keycode == Input.Keys.LEFT) {
+			keysPressed[2] = false;
+		}
+		if (keycode == Input.Keys.RIGHT) {
+			keysPressed[3] = false;
+		}
+		return true;
 	}
 
 	@Override
@@ -136,4 +160,7 @@ public class UniverseController implements InputProcessor{
 		return false;
 	}
 	
+	public boolean isPressed(int key) {
+		return keysPressed[key];
+	}
 }
