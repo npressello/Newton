@@ -24,9 +24,32 @@ public class Physics {
 		return netForce;
 	}
 	
+	public static Vector2 calcNetForceShip(Ship ship, Planet[] planet) {
+		Vector2 netForce = new Vector2(0,0);
+		float x = ship.getPosition().x;
+		float y = ship.getPosition().y;
+		for (Planet p: planet) {
+			float xDiff = p.getPosition().x - x;
+			float yDiff = p.getPosition().y - y;
+			float r = ship.getPosition().dst(p.getPosition());
+			float F = calcForceShip(ship, p, r*r);
+			float Fx = calcFcoord(F, xDiff, r);
+			float Fy = calcFcoord(F, yDiff, r);
+			netForce = netForce.add(Fx, Fy);
+		}
+		return netForce;
+	}
+	
 	public static Vector2 calcAccel(Planet p, Vector2 netForce) {
 		float ax = netForce.x / p.getMass();
 		float ay = netForce.y / p.getMass();
+		Vector2 accel = new Vector2(ax,ay);
+		return accel;
+	}
+	
+	public static Vector2 calcAccelShip(Ship ship, Vector2 netForce) {
+		float ax = netForce.x / ship.getMass();
+		float ay = netForce.y / ship.getMass();
 		Vector2 accel = new Vector2(ax,ay);
 		return accel;
 	}
@@ -38,8 +61,19 @@ public class Physics {
 		return vel;
 	}
 	
+	public static Vector2 newVelShip(float delta, Ship ship, Vector2 a) {
+		float vx = ship.getVelocity().x + a.x * delta;
+		float vy = ship.getVelocity().y + a.y * delta;
+		Vector2 vel = new Vector2(vx, vy);
+		return vel;
+	}
+	
 	public static float calcForce(Planet planet, Planet p, float squareDist) {
 		return (G * planet.getMass() * p.getMass()) / squareDist;
+	}
+	
+	public static float calcForceShip(Ship ship, Planet planet, float squareDist) {
+		return (G * ship.getMass() * planet.getMass()) / squareDist;
 	}
 	
 	public static float calcFcoord(float F, float xDiff, float dist) {

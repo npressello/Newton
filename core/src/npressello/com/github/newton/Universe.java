@@ -50,11 +50,15 @@ public class Universe {
 		} else if (controller.isPressed(1)){ // down
 			player.changeVelocity(-1);
 		}
+		Vector2 netForce = Physics.calcNetForceShip(player, galaxy.getSystems()[0].getPlanets());
+		Vector2 accel = Physics.calcAccelShip(player, netForce);
+		Vector2 vel = Physics.newVelShip(delta, player, accel);
+		player.setVelocity(vel);
 		player.update(delta);
 		for (Planet planet: galaxy.getSystems()[0].getPlanets()) {
-			Vector2 netForce = Physics.calcNetForce(planet, galaxy.getSystems()[0].getPlanets());
-			Vector2 accel = Physics.calcAccel(planet, netForce);
-			Vector2 vel = Physics.newVel(delta, planet, accel);
+			netForce = Physics.calcNetForce(planet, galaxy.getSystems()[0].getPlanets());
+			accel = Physics.calcAccel(planet, netForce);
+			vel = Physics.newVel(delta, planet, accel);
 			planet.setVelocity(vel);
 			planet.update(delta);
 		}
